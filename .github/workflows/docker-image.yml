@@ -29,5 +29,5 @@ jobs:
             "${{ github.event.inputs.url }}" \
             ${{ github.event.inputs.time }} \
             ${{ github.event.inputs.rate }} \
-            4 \
+            2 \
             ${{ github.event.inputs.cookies }}
