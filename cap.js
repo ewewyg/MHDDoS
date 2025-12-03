@@ -476,7 +476,7 @@ async function bypassBunnyShieldParallel(totalCount) {
     let attemptCount = 0;
     
     while (results.length < totalCount) {
-        const concurrentSessions = Math.min(6, totalCount - results.length);
+        const concurrentSessions = Math.min(8, totalCount - results.length);
         
         console.log(`\n\x1b[33mStarting batch (${concurrentSessions} sessions)...\x1b[0m`);
         
@@ -498,7 +498,7 @@ async function bypassBunnyShieldParallel(totalCount) {
         }
         
         if (results.length < totalCount) {
-            const delay = 1450;
+            const delay = 400;
             console.log(`\x1b[33mWaiting ${(delay/1000).toFixed(1)}s before next batch...\x1b[0m`);
             await new Promise(r => setTimeout(r, delay));
         }
