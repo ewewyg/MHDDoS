@@ -1,0 +1,33 @@
+name: ping
+on:
+  workflow_dispatch:
+    inputs:
+      url: {description: 'URL', required: true, default: 'https://example.com'}
+      time: {description: 'Time (s)', required: true, default: '60'}
+      rate: {description: 'Rate', required: true, default: '5'}
+      cookies: {description: 'Cookies', required: true, default: '3'}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        worker: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - run: |
+          sudo apt update
+          sudo apt install -y xvfb nodejs npm
+          Xvfb :99 -screen 0 1920x1080x24 &
+          export DISPLAY=:99
+          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth puppeteer-real-browser
+          
+      - run: |
+          node uam.js \
+            "${{ github.event.inputs.url }}" \
+            ${{ github.event.inputs.time }} \
+            ${{ github.event.inputs.rate }} \
+            1 \
+            ${{ github.event.inputs.cookies }}
