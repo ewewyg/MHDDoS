@@ -476,7 +476,7 @@ async function bypassBunnyShieldParallel(totalCount) {
     let attemptCount = 0;
     
     while (results.length < totalCount) {
-        const concurrentSessions = Math.min(8, totalCount - results.length);
+        const concurrentSessions = Math.min(5, totalCount - results.length);
         
         console.log(`\n\x1b[33mStarting batch (${concurrentSessions} sessions)...\x1b[0m`);
         
