@@ -483,7 +483,7 @@ async function bypassCloudflareParallel(totalCount) {
         
         if (results.length < totalCount) {
             console.log(`\x1b[33mWaiting 2s before next batch...\x1b[0m`);
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 700));
         }
     }
     
