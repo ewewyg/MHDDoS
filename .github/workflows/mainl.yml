@@ -1,4 +1,4 @@
-name: HTTP2 Load Test - Scaled
+name: Phwng
 on:
   workflow_dispatch:
     inputs:
