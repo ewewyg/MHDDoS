@@ -440,7 +440,7 @@ function generateAuthorizationHeader(authValue) {
 }
 
 function getRandomMethod() {
-    const methods = ['POST', 'HEAD', 'GET', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'CONNECT', 'TRACE'];
+    const methods = ['GET'];
     return methods[Math.floor(Math.random() * methods.length)];
 }
 
