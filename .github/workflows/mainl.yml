@@ -44,4 +44,4 @@ jobs:
     - run: npm install hpack chalk
     
     - run: |
-        node raw.js ${{ github.event.inputs.method }} ${{ github.event.inputs.target }} ${{ github.event.inputs.time }} ${{ github.event.inputs.threads }} ${{ github.event.inputs.rate }} --debug --randpath 3 --cache --referer rand
+        node raw.js ${{ github.event.inputs.method }} ${{ github.event.inputs.target }} ${{ github.event.inputs.time }} ${{ github.event.inputs.threads }} ${{ github.event.inputs.rate }} --debug --delay 45 --cache
